@@ -1,40 +1,123 @@
-<br><br><br>
+<br>
 
 <div class="container">
-    <h3 style="text-align: center;" class="mb-4"><u>{{equipos}}</u></h3>
-    <p class="text-muted">Para descargar un archivo, haz click sobre dicho archivo :)</p>
+    <span></span>
+    <h3 style="text-align: center;" class="mb-4" id="nombre"><u>{{equipos}}</u></h3>
+    <p class="text-muted" style="text-align: center;">Para descargar un archivo, haz click sobre dicho archivo :)</p>
 </div>
 
-<div class="container" id="gestor">
+<div class="container-fluid">
     <div class="row">
+        <div class="col-2 ml-5" id="tareas">
+            {{#if vista_de_lider}}
+            <textarea name="" class="mt-1 mr-1" id="tarea" cols="28" rows="16"
+                placeholder=" {{tareas}}  (Introduce nuevas tareas)"></textarea>
+            <button class="btn-primary" id="subir_tarea">Guardar</button>
+            {{else}}
+            <h5 style="text-align: center;">Tareas:</h5>
+            <hr>
+            <p>{{tareas}}</p>
 
-        <p id="cont_gest">
-            {{#each archivos}}
-                          
-            <div class="col-2 ml-5">
-                <p class="imagenes mt-3 mx-3" title="{{archivos}}">
-                    <a href="{{archivos}}" id="enlace_desc" download="">📄{{archivos}}</a>
-                </p>
+
+            {{/if}}
+        </div>
+        <div class="col-1"></div>
+        <div class="col-6">
+            <div class="container" id="gestor">
+                <div class="row">
+
+                    <p id="cont_gest">
+                        {{#each archivos}}
+
+                        <div class="col-2 ml-5">
+                            <p class="imagenes mt-3 mx-3" title="{{archivos}}">
+                                <a href="{{archivos}}" id="enlace_desc" download="">📄{{archivos}}</a>
+                            </p>
+                        </div>
+                        {{/each}}
+                    </p>
+
+                </div>
             </div>
+
+        </div>
+        <div class="col-2 ml-5" id="miembros_proyecto">
+            <h5 style="text-align: center;">Miembros</h5>
+            <hr>
+            {{#each miembros}}
+            <p class="mt-3" id="miembro_proyecto"><a href="/otro_perfil/{{nombre}}"
+                    style="color: black;"><u>{{nombre}}</u></a></p>
             {{/each}}
-        </p>
+            {{#each vista_de_lider}}
+            <p class="mt-3" id="miembro_proyecto"><a href="/otro_perfil/{{nombre}}"
+                    style="color: black;"><u>{{nombre}}</u></a> | <a href="/expulsar/{{nombre}}"> Expulsar </a></p>
+            {{/each}}
+            <br><br>
+            {{#if vista_de_lider}}
+
+            {{#each rookie}}
+        
+            <p class="mt-3" id="miembro_proyecto"><a href="/otro_perfil/{{nombre}}" style="color: black;"><u> {{nombre}}
+                    </u></a> <span style="background-color: yellow;">→</span> <a href="/aceptar/{{nombre}}"> Aceptar </a> | <a href="/rechazar/{{nombre}}"> Rechazar
+                </a></p>
+
+            {{/each}}
+
+            <p><a id="cancelar_proyecto" class="btn-danger" style="font-weight: 500;color: white">Finalizar Proyecto</a>
+            </p>
+            {{else}}
+            <p><a id="abandonar_proyecto" class="btn-danger" style="font-weight: 500;color: white">Abandonar
+                    Proyecto</a>
+            </p>
+            {{/if}}
+        </div>
+
 
     </div>
-
-
-
 </div>
+
 <div class="container mt-3">
-    <form action="/gestor" method="POST" enctype="multipart/form-data" style="text-align: right;">
-        <input type="file" name="file">
-        <button type="submit" id="subir_archivos">Subir archivo</button>
-    </form>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-6">
+            <form action="/gestor" method="POST" enctype="multipart/form-data" style="text-align: right;">
+                <input type="file" name="file">
+                <button type="submit" id="subir_archivos">Subir archivo</button>
+            </form>
+        </div>
+    </div>
+</div>
+<hr class="my-5">
+<!--TODO: CHAT-->
+<div class="container-fluid mt-5">
+    <h5 style="text-align: center;" class="mb-5">Chat</h5>
+    <div class="row">
+
+        <div class="col-2"></div>
+        <div class="col-8" id="chat">
+            {{#each mensaje}}
+            <p style="text-align: left" class="my-3"> <a href="/otro_perfil/{{usuarios}}">{{usuarios}}</a> ➤ {{mensaje}}
+            </p>
+            <hr style="width: 150px;" align="left">
+            {{/each}}
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <input type="text" class="mt-3" id="mensaje" placeholder="Manda tu mensaje">
+            <button id="mandar_mensaje">Mandar</button>
+        </div>
+    </div>
 </div>
 
+<span id="id" style="color: rgba(0, 0, 0, 0%);">{{adios}}</span>
 
 
 
-<br><br><br><br>
+<br><br>
 
 
 <script>
@@ -47,5 +130,42 @@
             console.log(extension)
 
         });
+
+        $('#subir_tarea').click(function () {
+            var tarea = $('#tarea').val();
+            //console.log(tarea);
+            if (tarea == "") {
+                return false
+            } else {
+                location.href = "/nueva_tarea/" + tarea
+            }
+
+        });
+
+        $('#cancelar_proyecto').click(function () {
+            var id = $('#id').text();
+            location.href = "/adios_proyecto/" + id;
+
+        });
+
+        $('#abandonar_proyecto').click(function () {
+            location.href = "/abandonar_proyecto"
+
+        });
+
+
+        $('#mandar_mensaje').click(function () {
+
+            var texto = $('#mensaje').val();
+            //console.log(texto)
+            if (texto == "") {
+                return false
+            } else {
+                location.href = "/chat/" + texto.trim();
+            }
+
+
+        });
+
     });
 </script>

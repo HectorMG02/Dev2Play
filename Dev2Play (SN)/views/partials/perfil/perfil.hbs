@@ -1,8 +1,8 @@
 <!-- Page Content -->
-
+<br>
 <div class="container-fluid">
 	<div class="row">
-		<img src="{{photo}}" class="rounded-circle z-depth-0 mx-auto  perf">
+		<img src="{{photo_us}}" class="rounded-circle z-depth-0 mx-auto  perf">
 		<!--Puse el heigth porque la imagen estaba ovalada-->
 	</div>
 	<div class="row mb-2">
@@ -34,7 +34,7 @@
 			<br>
 			{{#each roles}}
 			<div class="fijar">
-				<h3>{{nombre_rol}}</h3>
+				<h5 style="text-align: center;">{{nombre_rol}}</h5>
 				<br>
 			</div>
 		{{/each}}
@@ -67,6 +67,7 @@
 
 	</div>
 	<br>
+			{{#if usuario_propio}}
 	<div class="row">
 		<div class="col-4"></div>
 		<div class="col-4"></div>
@@ -77,7 +78,9 @@
 				Publicacion Nueva
 			</button>
 		</div>
+
 	</div>
+			{{/if}}
 </div>
 
 

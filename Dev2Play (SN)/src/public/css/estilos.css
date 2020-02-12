@@ -127,8 +127,8 @@ nav {
 
 footer {
 
-    bottom: 1px;
-    /*Lo ponemos abajo*/
+    bottom: 0px;
+    position: relative;
     width: 100%;
 
     background-image: linear-gradient(to top, rgb(172, 172, 178), white);
@@ -916,6 +916,7 @@ p {
  .img_form_juego{
      width: 448px;
      height: 548px;
+     border: 5px solid black;
  }
 
  /*Administracion*/
@@ -938,7 +939,8 @@ p {
 
 #descrip_proy_modal{
 
-    min-height: 200px;
+    height: 200px;
+    max-height: 200px;
     overflow-y: auto;
 }
 
@@ -1086,4 +1088,59 @@ p {
 
     #subir_archivos:hover{
         box-shadow: 1px 1px 1px 1px black;
+    }
+
+    #miembros_proyecto{
+
+        height: 400px;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    #tareas{
+        height: 430px;
+        max-height: 430px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    #miembro_proyecto{
+        font-family: fjalla;
+        color: black;
+        font-size: 18px;
+    }
+
+    #chat{
+        border: 1px solid black;
+        height: 300px;
+        max-height: 300px;
+        overflow-y: auto;
+        
+    }
+
+    #mensaje{
+        border-top: 0px;
+        border-left: 0px;
+        border-right: 0px;
+        outline: none;
+        border-bottom: 2px solid black;
+        width: 750px;
+    }
+
+    #mandar_mensaje{
+        border-radius: 20px; 
+        background-color:rgb(255, 255, 255);
+        color: rgb(3, 3, 3);
+        outline: none;
+    }
+
+    #mandar_mensaje:hover{
+        box-shadow: 1px 1px 1px 1px black;
+    }
+
+    #sobre_mi_gente{
+
+        height: 90px;
+        max-height: 90px;
+        overflow-y: auto;
     }
